@@ -15,7 +15,7 @@ namespace LibraryApp.Entities
         public string Name { get; set; }
         public string Genre { get; set; }
         public DateTime PublishingDate { get; set; }
-        public int NumberOfPages { get; set; }
+        public int? NumberOfPages { get; set; }
         public int AuthorId { get; set; }
         public Author Author { get; set; }
     }

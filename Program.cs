@@ -13,7 +13,7 @@ namespace LibraryApp
             }
             catch(Exception e)
             {
-                Console.WriteLine($"Errore!!!!!!!! {e.Message}");
+                Console.WriteLine($"Error!!!!!!!! {e.Message}");
             }
         }
     }
