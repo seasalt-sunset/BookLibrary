@@ -103,3 +103,4 @@ C:\Users\federico.sbressa\source\repos\LibraryApp\LibraryApp\obj\Debug\net8.0\Li
 C:\Users\federico.sbressa\source\repos\LibraryApp\LibraryApp\obj\Debug\net8.0\LibraryApp.genruntimeconfig.cache
 C:\Users\federico.sbressa\source\repos\LibraryApp\LibraryApp\obj\Debug\net8.0\ref\LibraryApp.dll
 C:\Users\federico.sbressa\source\repos\LibraryApp\LibraryApp\bin\Debug\net8.0\appsettings.json
+C:\Users\federico.sbressa\source\repos\LibraryApp\LibraryApp\obj\Debug\net8.0\LibraryApp.sourcelink.json

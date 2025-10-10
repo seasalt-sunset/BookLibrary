@@ -35,7 +35,7 @@ namespace LibraryApp.Repository
 
         public static void RemoveAuthor(LibraryAppDbContext context, Author author)
         {
-            var existingAuthor = context.Authors.FirstOrDefault(a => a.AuthorId == author.AuthorId)
+            var existingAuthor = context.Authors.FirstOrDefault(a => a.AuthorId == author.AuthorId);
                 context.Authors.Remove(existingAuthor);
         }
 
