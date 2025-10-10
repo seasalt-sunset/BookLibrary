@@ -1,5 +1,6 @@
 ﻿using LibraryApp.Entities;
 using LibraryApp.Infrastructure;
+using LibraryApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,16 @@ namespace LibraryApp.Input
 {
     public static class AddInput
     {
-        public static void AddAuthor(LibraryAppDbContext context, bool added = false, string name = null)
+        public static void AddAuthor(LibraryAppDbContext context, bool addedBook = false, string name = null)
         {
             string choice = "";
             DateTime date = new DateTime();
             DateTime deathTemp = new DateTime();
-            Console.WriteLine("Write the name of the author");
-            name = Console.ReadLine();
+            if(name == null)
+            {
+                Console.WriteLine("Write the name of the author");
+                name = Console.ReadLine();
+            }
             Console.WriteLine("Write the birth date of the author (dd/MM/yyyy)");
             bool success = false;
             while (!success)
@@ -45,16 +49,18 @@ namespace LibraryApp.Input
                 DeathDate = deathDate,
                 Books = new List<Book>()
             };
-            // METODO PER AGG AL DATABASE
-            if (added)
+
+            RepositoryMethods.AddAuthor(context, author);
+
+            if (addedBook)
             {
                 return;
             }
             while(choice!= "y" && choice!= "n")
             {
-                added = false;
+                addedBook = false;
                 
-                if (added)
+                if (addedBook)
                 {
                     Console.WriteLine("Do you want to add another book?");
                 }
@@ -94,14 +100,15 @@ namespace LibraryApp.Input
                 success = int.TryParse(Console.ReadLine(), out numberOfPages);
                 if (!success) { Console.WriteLine("Wrong input"); }
             }
-            if(authorName == null)
+            while(authorName == null || authorName == "")
             {
                 Console.WriteLine("Write the name of the author:");
                 authorName = Console.ReadLine();
                 AddAuthor(context, true, authorName);
             }
 
-            Author authorSearched;//AGG METODO PER CERCARE SE L'AUTORE ESISTE IN DATABASE
+            Author authorSearched = RepositoryMethods.FindAuthor(context, authorName);
+
 
             var book = new Book
             {
@@ -113,12 +120,7 @@ namespace LibraryApp.Input
                 Author = authorSearched
             };
 
-            //AGG METODO PER AGG BOOK IN DATABASE
-
-
-
-
+            RepositoryMethods.AddBook(context, book);
         }
-
     }
 }
