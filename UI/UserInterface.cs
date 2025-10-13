@@ -52,8 +52,20 @@ namespace LibraryApp.UI
                         ViewInput.ViewAllBooks(context);
                         break;
                     case EnumMenu.RemoveAuthor:
+                        RemoveInput.RemoveAuthor(context);
                         break;
                     case EnumMenu.RemoveBook:
+                        RemoveInput.RemoveBook(context);
+                        break;
+                    case EnumMenu.RemoveAllAuthors:
+                        RemoveInput.RemoveAllAuthors(context);
+                        break;
+                    case EnumMenu.RemoveAllBooks:
+                        RemoveInput.RemoveAllBooks(context);
+                        break;
+                    case EnumMenu.Exit:
+                        return;
+                    case EnumMenu.WrongInput:
                         break;
                 }
             }
@@ -68,10 +80,11 @@ namespace LibraryApp.UI
             Console.WriteLine("3) View");
             Console.WriteLine("4) View All");
             Console.WriteLine("5) Remove");
-            Console.WriteLine("6) Exit");
+            Console.WriteLine("6) Remove All");
+            Console.WriteLine("7) Exit");
 
             int number = ReadNumber(1, 6);
-            EnumMenu choice;
+            EnumMenu choice = 0;
 
             switch(number)
             {
@@ -100,8 +113,17 @@ namespace LibraryApp.UI
                     number = ReadNumber(1, 2);
                     choice = number == 1 ? EnumMenu.RemoveAuthor : EnumMenu.RemoveBook;
                     break;
-                default:
+                case 6:
+                    Console.WriteLine("Do you want to remove all Authors and their books (press 1) or only the books (press 2)?");
+                    number = ReadNumber(1, 2);
+                    choice = number == 1 ? EnumMenu.RemoveAllAuthors : EnumMenu.RemoveAllBooks;
+                    break;
+                case 7:
                     choice = EnumMenu.Exit;
+                    break;
+                default:
+                    Console.WriteLine("\nWrong input.\n");
+                    choice = EnumMenu.WrongInput;
                     break;
 
             }

@@ -20,6 +20,9 @@ namespace LibraryApp.UI
         ViewAll,
         RemoveAuthor,
         RemoveBook,
+        RemoveAllAuthors,
+        RemoveAllBooks,
+        WrongInput
 
     }
 }

@@ -47,13 +47,17 @@ namespace LibraryApp.Repository
         public static void RemoveAuthor(LibraryAppDbContext context, Author author)
         {
             var existingAuthor = context.Authors.FirstOrDefault(a => a.AuthorId == author.AuthorId);
-                context.Authors.Remove(existingAuthor);
+            context.Authors.Remove(existingAuthor);
+
+            context.SaveChanges();
         }
 
         public static void RemoveBook(LibraryAppDbContext context, Book book)
         {
             var existingBook = context.Books.FirstOrDefault(b => b.BookId == book.BookId);
-                context.Books.Remove(existingBook);
+            context.Books.Remove(existingBook);
+
+            context.SaveChanges();
         }
     }
 }
