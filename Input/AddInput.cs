@@ -105,7 +105,10 @@ namespace LibraryApp.Input
             {
                 Console.WriteLine("Write the name of the author:");
                 authorName = Console.ReadLine();
-                AddAuthor(context, true, authorName);
+                if(RepositoryMethods.FindAuthor(context,authorName) == null)
+                {
+                    AddAuthor(context, true, authorName);
+                }
             }
 
             Author authorSearched = RepositoryMethods.FindAuthor(context, authorName);

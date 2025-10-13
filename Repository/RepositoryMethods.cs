@@ -2,6 +2,7 @@
 using LibraryApp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,12 +26,22 @@ namespace LibraryApp.Repository
 
         public static Author? FindAuthor(LibraryAppDbContext context, string authorName)
         {
-            return context.Authors.FirstOrDefault(author => author.Name == authorName);
+            return context.Authors.Include(author => author.Books)
+                .FirstOrDefault(author => author.Name == authorName);
         }
+        public static List<Author> FindAllAuthors(LibraryAppDbContext context)
+        {
+            return context.Authors.Include(a => a.Books).ToList();
+        }
+
+        public static List<Book> FindAllBooks(LibraryAppDbContext context)
+        {
+            return context.Books.Include(b => b.Author).ToList();        }
 
         public static Book? FindBook(LibraryAppDbContext context, string bookName)
         {
-            return context.Books.FirstOrDefault(book => book.Name == bookName);
+            return context.Books.Include(book => book.Author)
+                .FirstOrDefault(book => book.Name == bookName);
         }
 
         public static void RemoveAuthor(LibraryAppDbContext context, Author author)

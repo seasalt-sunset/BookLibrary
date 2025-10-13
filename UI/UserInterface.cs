@@ -40,14 +40,16 @@ namespace LibraryApp.UI
                         ModifyInput.ModifyBook(context);
                         break;
                     case EnumMenu.ViewAuthor:
+                        ViewInput.ViewAuthor(context);
                         break;
                     case EnumMenu.ViewBook:
+                        ViewInput.ViewBook(context);
                         break;
                     case EnumMenu.ViewAllAuthors:
+                        ViewInput.ViewAllAuthors(context);
                         break;
                     case EnumMenu.ViewAllBooks:
-                        break;
-                    case EnumMenu.ViewAll:
+                        ViewInput.ViewAllBooks(context);
                         break;
                     case EnumMenu.RemoveAuthor:
                         break;
@@ -89,9 +91,9 @@ namespace LibraryApp.UI
                     choice = number == 1 ? EnumMenu.ViewAuthor : EnumMenu.ViewBook;
                     break;
                 case 4:
-                    Console.WriteLine("Do you want to view all the authors (press 1), all the books (press 2) or both (press 3)?");
-                    number = ReadNumber(1, 3);
-                    choice = number == 1 ? EnumMenu.ViewAllAuthors : number == 2 ? EnumMenu.ViewAllBooks : EnumMenu.ViewAll;
+                    Console.WriteLine("Do you want to view all the authors (press 1) or all the books (press 2)?");
+                    number = ReadNumber(1, 2);
+                    choice = number == 1 ? EnumMenu.ViewAllAuthors : EnumMenu.ViewAllBooks;
                         break;
                 case 5:
                     Console.WriteLine("Do you want to remove an author (press 1) or a book (press 2)?");
