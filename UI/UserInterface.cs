@@ -7,6 +7,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using LibraryApp.Input;
 
 namespace LibraryApp.UI
 {
@@ -27,12 +28,16 @@ namespace LibraryApp.UI
                 switch(choice)
                 {
                     case EnumMenu.AddAuthor:
+                        AddInput.AddAuthor(context);
                         break;
                     case EnumMenu.AddBook:
+                        AddInput.AddBook(context);
                         break;
                     case EnumMenu.ModifyAuthor:
+                        ModifyInput.ModifyAuthor(context);
                         break;
                     case EnumMenu.ModifyBook:
+                        ModifyInput.ModifyBook(context);
                         break;
                     case EnumMenu.ViewAuthor:
                         break;

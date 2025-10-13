@@ -1,4 +1,5 @@
 ﻿using LibraryApp.Infrastructure;
+using LibraryApp.UI;
 
 namespace LibraryApp
 {
@@ -9,6 +10,8 @@ namespace LibraryApp
             try
             {
                 using LibraryAppDbContext context = new LibraryAppDbContext();
+                UserInterface ui = new UserInterface(context);
+                ui.start();
 
             }
             catch(Exception e)

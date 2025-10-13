@@ -1,11 +1,12 @@
-﻿using System;
+﻿using LibraryApp.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using LibraryApp.Entities;
 
 namespace LibraryApp.Infrastructure
 {
@@ -22,6 +23,7 @@ namespace LibraryApp.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Author>(entity =>
             {
                 entity.ToTable("Authors");
@@ -29,9 +31,25 @@ namespace LibraryApp.Infrastructure
 
                 entity.HasMany(author => author.Books)
                 .WithOne(book => book.Author)
-                .HasForeignKey(book => book.AuthorId);
+                .HasForeignKey(book => book.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+                entity.Property(author => author.BirthDate)
+                .HasColumnType("date");
+
+                entity.Property(author => author.DeathDate)
+                .HasColumnType("date");
             });
+            
+            modelBuilder.Entity<Book>( entity =>
+            {
+                entity.Property(book => book.PublishingDate)
+                .HasColumnType("date");
+            }
+            );
         }
+
+        
 
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }

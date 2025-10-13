@@ -18,7 +18,7 @@ namespace LibraryApp.Input
                 Console.WriteLine("Write the name of the author:");
                 string authorName = Console.ReadLine();
                 author = RepositoryMethods.FindAuthor(context, authorName);
-                if(author==null) { Console.WriteLine("Name not found."); }
+                if(author==null) { Console.WriteLine("\nName not found.\n"); }
             }
             int choice = -1;
             do
@@ -48,7 +48,7 @@ namespace LibraryApp.Input
                             Console.WriteLine("Write the new BirthDate (dd/MM/yyyy):");
                             string inputDate = Console.ReadLine();
                             success = DateTime.TryParse(inputDate, out newBirthDate);
-                            if (!success) Console.WriteLine("Wrong input");
+                            if (!success) Console.WriteLine("\nWrong input\n");
                         }
                         author.BirthDate = newBirthDate;
                         context.SaveChanges();
@@ -67,12 +67,15 @@ namespace LibraryApp.Input
                             Console.WriteLine("Write the new Death Date (dd/MM/yyyy):");
                             string inputDate = Console.ReadLine();
                             success = DateTime.TryParse(inputDate, out newDeathDate);
-                            if (!success) Console.WriteLine("Wrong input");
+                            if (!success) Console.WriteLine("\nWrong input\n");
                         }
                         author.DeathDate = newDeathDate;
                         context.SaveChanges();
                         break;
                     case 5:
+                        break;
+                    default:
+                        Console.WriteLine("\nWrong input\n");
                         break;
                 }
             } while (choice != 5);
@@ -85,75 +88,79 @@ namespace LibraryApp.Input
                 Console.WriteLine("Write the book name");
                 string bookName = Console.ReadLine();
                 book = RepositoryMethods.FindBook(context, bookName);
-                if(book==null) { Console.WriteLine("Book not found"); }
+                if(book==null) { Console.WriteLine("\nBook not found.\n"); }
             }
             
             bool selected = false;
             int choice = 0;
-            while (true)
+            do
             {
-                Console.WriteLine("What do you wanna modify?:" +
-                                    "1) Name" +
-                                    "2) Genre" +
-                                    "3) Publishing date" +
-                                    "4) Number of pages" +
-                                    "5) Author");
+                Console.WriteLine("What do you wanna modify?:\n" +
+                                    "1) Name\n" +
+                                    "2) Genre\n" +
+                                    "3) Publishing date\n" +
+                                    "4) Number of pages\n" +
+                                    "5) Author\n" +
+                                    "6) Return to main menu\n");
                 selected = int.TryParse(Console.ReadLine(), out choice);
-                if (choice >= 1 && choice <= 3) break;
-            }
-                
-            
-            switch (choice)
-            {
-                case 1:
-                    Console.WriteLine("Write the new name:");
-                    book.Name = Console.ReadLine();
-                    context.SaveChanges();
-                    return;
-                case 2:
-                    Console.WriteLine("Write the new genre:");
-                    book.Genre = Console.ReadLine();
-                    context.SaveChanges();
-                    break;
-                case 3:
-                    DateTime publishingDate = new DateTime();
-                    bool success = false;
-                    while (!success)
-                    {
-                        Console.WriteLine("Write the new publishing Date (dd/MM/yyyy):");
-                        string inputDate = Console.ReadLine();
-                        success = DateTime.TryParse(inputDate, out publishingDate);
-                        if (!success) Console.WriteLine("Wrong input");
-                    }
-                    book.PublishingDate = publishingDate;
-                    context.SaveChanges();
-                    break;
-                case 4:
-                    int numberOfPages = -1;
-                    bool succ = false;
-                    while (!succ)
-                    {
-                        Console.WriteLine("Write the new number of page:");
-                        string input = Console.ReadLine();
-                        succ = int.TryParse(input, out numberOfPages);
-                    }
-                    book.NumberOfPages = numberOfPages;
-                    context.SaveChanges();
-                    break;
-                case 5:
-                    Console.WriteLine("Write the name of the author");
-                    string inputAuthorName = Console.ReadLine();
-                    Author? searchedAuthor = RepositoryMethods.FindAuthor(context, inputAuthorName);
-                    if(searchedAuthor == null)
-                    {
-                        AddInput.AddAuthor(context, true, inputAuthorName);
-                        searchedAuthor = RepositoryMethods.FindAuthor(context, inputAuthorName);
-                    }
-                    book.Author = searchedAuthor;
-                    context.SaveChanges();
-                    break;
+               
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine("Write the new name:");
+                        book.Name = Console.ReadLine();
+                        context.SaveChanges();
+                        break;
+                    case 2:
+                        Console.WriteLine("Write the new genre:");
+                        book.Genre = Console.ReadLine();
+                        context.SaveChanges();
+                        break;
+                    case 3:
+                        DateTime publishingDate = new DateTime();
+                        bool success = false;
+                        while (!success)
+                        {
+                            Console.WriteLine("Write the new publishing Date (dd/MM/yyyy):");
+                            string inputDate = Console.ReadLine();
+                            success = DateTime.TryParse(inputDate, out publishingDate);
+                            if (!success) Console.WriteLine("\nWrong input\n");
+                        }
+                        book.PublishingDate = publishingDate;
+                        context.SaveChanges();
+                        break;
+                    case 4:
+                        int numberOfPages = -1;
+                        bool succ = false;
+                        while (!succ)
+                        {
+                            Console.WriteLine("Write the new number of page:");
+                            string input = Console.ReadLine();
+                            succ = int.TryParse(input, out numberOfPages);
+                        }
+                        book.NumberOfPages = numberOfPages;
+                        context.SaveChanges();
+                        break;
+                    case 5:
+                        Console.WriteLine("Write the name of the author");
+                        string inputAuthorName = Console.ReadLine();
+                        Author? searchedAuthor = RepositoryMethods.FindAuthor(context, inputAuthorName);
+                        if (searchedAuthor == null)
+                        {
+                            AddInput.AddAuthor(context, true, inputAuthorName);
+                            searchedAuthor = RepositoryMethods.FindAuthor(context, inputAuthorName);
+                        }
+                        book.Author = searchedAuthor;
+                        context.SaveChanges();
+                        break;
+                    case 6:
+                        break;
+                    default:
+                        Console.WriteLine("\nWrong input\n");
+                        break;
+                }
 
-            }
+            } while (choice != 6);
 
         }
     }

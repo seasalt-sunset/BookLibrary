@@ -27,7 +27,7 @@ namespace LibraryApp.Input
             while (!success)
             {
                 success = DateTime.TryParse(Console.ReadLine(), out date);
-                if (!success) { Console.WriteLine("Wrong input"); }
+                if (!success) { Console.WriteLine("\nWrong input\n"); }
             }
             Console.WriteLine("Write the nationality");
             string nationality = Console.ReadLine();
@@ -37,7 +37,8 @@ namespace LibraryApp.Input
             {
                 string input = Console.ReadLine();
                 if (input == "") break;
-                success = DateTime.TryParse(Console.ReadLine(), out deathTemp);
+                success = DateTime.TryParse(input, out deathTemp);
+                if(!success) Console.WriteLine("\nWrong input\n");
             }
             DateTime? deathDate = success ? deathTemp : null;
 
@@ -50,8 +51,8 @@ namespace LibraryApp.Input
                 Books = new List<Book>()
             };
 
+            context.SaveChanges();
             RepositoryMethods.AddAuthor(context, author);
-
             if (addedBook)
             {
                 return;
@@ -69,7 +70,7 @@ namespace LibraryApp.Input
                     Console.WriteLine("Do you want to add a book? (y/n)");
                 }
                 choice = Console.ReadLine();
-                if(choice != "y" && choice != "n") Console.WriteLine("Wrong input.");
+                if(choice != "y" && choice != "n") Console.WriteLine("\nWrong input\n.");
                 if(choice == "y")
                 {
 
@@ -90,7 +91,7 @@ namespace LibraryApp.Input
             while (!success)
             {
                 success = DateTime.TryParse(Console.ReadLine(), out publishingDate);
-                if (!success) { Console.WriteLine("Wrong input"); }
+                if (!success) { Console.WriteLine("\nWrong input\n"); }
             }
             Console.WriteLine("Write the number of pages");
             int numberOfPages = 0;
@@ -98,7 +99,7 @@ namespace LibraryApp.Input
             while (!success)
             {
                 success = int.TryParse(Console.ReadLine(), out numberOfPages);
-                if (!success) { Console.WriteLine("Wrong input"); }
+                if (!success) { Console.WriteLine("\nWrong input\n"); }
             }
             while(authorName == null || authorName == "")
             {
@@ -121,6 +122,7 @@ namespace LibraryApp.Input
             };
 
             RepositoryMethods.AddBook(context, book);
+            Console.WriteLine("\nAdded!\n");
         }
     }
 }
