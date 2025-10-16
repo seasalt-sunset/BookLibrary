@@ -22,7 +22,9 @@ namespace LibraryApp.UI
         RemoveBook,
         RemoveAllAuthors,
         RemoveAllBooks,
-        WrongInput
+        WriteToFile,
+        ReadFromFile,
+        WrongInput,
 
     }
 }

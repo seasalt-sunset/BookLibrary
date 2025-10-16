@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using LibraryApp.Input;
+using LibraryApp.IO;
 
 namespace LibraryApp.UI
 {
@@ -63,9 +64,16 @@ namespace LibraryApp.UI
                     case EnumMenu.RemoveAllBooks:
                         RemoveInput.RemoveAllBooks(context);
                         break;
+                    case EnumMenu.WriteToFile:
+                        InputOutput.ChooseFormat(ReadOrWrite.Write);
+                        break;
+                    case EnumMenu.ReadFromFile:
+                        InputOutput.ChooseFormat(ReadOrWrite.Read);
+                        break;
                     case EnumMenu.Exit:
                         return;
                     case EnumMenu.WrongInput:
+                        Console.WriteLine("Wrong input.");
                         break;
                 }
             }
@@ -81,7 +89,9 @@ namespace LibraryApp.UI
             Console.WriteLine("4) View All");
             Console.WriteLine("5) Remove");
             Console.WriteLine("6) Remove All");
-            Console.WriteLine("7) Exit");
+            Console.WriteLine("7) Export library to file");
+            Console.WriteLine("8) Import library from file");
+            Console.WriteLine("9) Exit");
 
             int number = ReadNumber(1, 6);
             EnumMenu choice = 0;
@@ -107,7 +117,7 @@ namespace LibraryApp.UI
                     Console.WriteLine("Do you want to view all the authors (press 1) or all the books (press 2)?");
                     number = ReadNumber(1, 2);
                     choice = number == 1 ? EnumMenu.ViewAllAuthors : EnumMenu.ViewAllBooks;
-                        break;
+                    break;
                 case 5:
                     Console.WriteLine("Do you want to remove an author (press 1) or a book (press 2)?");
                     number = ReadNumber(1, 2);
@@ -119,6 +129,12 @@ namespace LibraryApp.UI
                     choice = number == 1 ? EnumMenu.RemoveAllAuthors : EnumMenu.RemoveAllBooks;
                     break;
                 case 7:
+                    choice = EnumMenu.WriteToFile;
+                    break;
+                case 8:
+                    choice = EnumMenu.ReadFromFile;
+                    break;
+                case 9:
                     choice = EnumMenu.Exit;
                     break;
                 default:
