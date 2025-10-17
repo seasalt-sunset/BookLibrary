@@ -10,6 +10,9 @@ using CsvHelper;
 using System.Globalization;
 using LibraryApp.Repository;
 using LibraryApp.Infrastructure;
+using System.Xml.Serialization;
+using LibraryApp.Entities;
+using LibraryApp.DTOs;
 
 namespace LibraryApp.IO
 {
@@ -34,14 +37,28 @@ namespace LibraryApp.IO
 
         }
 
-        public static void WriteToJson(LibraryAppDbContext context, string path, string pathBooks)
+        public static void WriteToJson(LibraryAppDbContext context, string pathAuthors, string pathBooks)
         {
 
         }
 
-        public static void WriteToXml(LibraryAppDbContext context, string path, string pathBooks)
+        public static void WriteToXml(LibraryAppDbContext context, string pathAuthors, string pathBooks)
         {
+            XmlSerializer xmlAuthors = new XmlSerializer(typeof(List<AuthorExport>));
+            
+            using(FileStream writer = new FileStream(pathAuthors, FileMode.Create, FileAccess.Write))
+            {
+                var authors = RepositoryMethods.GetAuthorsExport(context);
+                xmlAuthors.Serialize(writer, authors);
+            }
 
+            XmlSerializer xmlBooks = new XmlSerializer(typeof(List<BookExport>));
+
+            using (FileStream writer = new FileStream(pathBooks, FileMode.Create, FileAccess.Write))
+            {
+                var books = RepositoryMethods.GetBooksExport(context);
+                xmlBooks.Serialize(writer, books);
+            }
         }
     }
 }

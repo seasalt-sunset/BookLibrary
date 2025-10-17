@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace LibraryApp.Entities
 {
@@ -18,8 +17,6 @@ namespace LibraryApp.Entities
         public DateTime PublishingDate { get; set; }
         public int? NumberOfPages { get; set; }
         public int AuthorId { get; set; }
-        
-        [JsonIgnore]
         public Author Author { get; set; }
     }
 }

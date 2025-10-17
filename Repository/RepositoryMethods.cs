@@ -54,6 +54,7 @@ namespace LibraryApp.Repository
             return authors;
         }
 
+
         public static List<BookExport> GetBooksExport(LibraryAppDbContext context)
         {
             var authors = context.Books.Select(b => new BookExport()
@@ -98,10 +99,12 @@ namespace LibraryApp.Repository
                     Genre = book.Genre,
                     PublishingDate = book.PublishingDate,
                     NumberOfPages = book.NumberOfPages,
-                    AuthorId = book.AuthorId,
-                    Author = context.Authors.Single(a => a.AuthorId == book.AuthorId)
+                    AuthorId = book.AuthorId
                 };
-                context.Books.Add(entry);
+                if(context.Authors.Select(a => a.AuthorId).Contains(book.AuthorId))
+                {
+                    context.Books.Add(entry);
+                }
             }
             context.SaveChanges();
         }

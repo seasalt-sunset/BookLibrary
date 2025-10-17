@@ -17,7 +17,7 @@ namespace LibraryApp.IO
             if (select == ReadOrWrite.Write)
             {
                 Console.WriteLine("You can choose one of the following extensions:" +
-                            "\n .csv" +
+                            "\n.csv" +
                             "\n.json" +
                             "\n.xml");
                 Console.WriteLine("Write the full path where you want to save the Authors (including file name and extention):");
@@ -28,7 +28,7 @@ namespace LibraryApp.IO
             else
             {
                 Console.WriteLine("You can choose one of the following extensions:" +
-                            "\n .csv" +
+                            "\n.csv" +
                             "\n.json" +
                             "\n.xml");
                 Console.WriteLine("Write the full path of the file you want to read Authors from (including file name and extention):");
