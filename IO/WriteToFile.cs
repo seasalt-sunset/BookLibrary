@@ -13,6 +13,7 @@ using LibraryApp.Infrastructure;
 using System.Xml.Serialization;
 using LibraryApp.Entities;
 using LibraryApp.DTOs;
+using Newtonsoft.Json;
 
 namespace LibraryApp.IO
 {
@@ -35,10 +36,20 @@ namespace LibraryApp.IO
                 csvBooks.WriteRecords(allBooks);
             }
 
+            Console.WriteLine("\nExport completed!\n");
         }
 
         public static void WriteToJson(LibraryAppDbContext context, string pathAuthors, string pathBooks)
         {
+            var authors = RepositoryMethods.GetAuthorsExport(context);
+            string authorsJson = JsonConvert.SerializeObject(authors);
+            File.WriteAllText(pathAuthors, authorsJson);
+
+            var books = RepositoryMethods.GetBooksExport(context);
+            string booksJson = JsonConvert.SerializeObject(books);
+            File.WriteAllText(pathBooks, booksJson);
+
+            Console.WriteLine("\nExport completed!\n");
 
         }
 
@@ -59,6 +70,9 @@ namespace LibraryApp.IO
                 var books = RepositoryMethods.GetBooksExport(context);
                 xmlBooks.Serialize(writer, books);
             }
+
+            Console.WriteLine("\nExport completed!\n");
+
         }
     }
 }

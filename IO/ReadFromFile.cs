@@ -11,6 +11,9 @@ using System.Globalization;
 using LibraryApp.Repository;
 using LibraryApp.DTOs;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace LibraryApp.IO
 {
@@ -32,12 +35,20 @@ namespace LibraryApp.IO
                 RepositoryMethods.ImportBooks(context, books);
             }
 
-            Console.WriteLine("\nImportazione completata!\n");
+            Console.WriteLine("\nImport completed!\n");
         }
 
-        public static void ReadFromJson(LibraryAppDbContext context, string path, string pathBooks)
+        public static void ReadFromJson(LibraryAppDbContext context, string pathAuthors, string pathBooks)
         {
+            string authorsJson = File.ReadAllText(pathAuthors);
+            var authors = JsonConvert.DeserializeObject<List<AuthorExport>>(authorsJson);
+            RepositoryMethods.ImportAuthors(context, authors);
 
+            string booksJson = File.ReadAllText(pathBooks);
+            var books = JsonConvert.DeserializeObject<List<BookExport>>(booksJson);
+            RepositoryMethods.ImportBooks(context, books);
+
+            Console.WriteLine("\nImport completed!\n");
         }
 
         public static void ReadFromXml(LibraryAppDbContext context, string pathAuthors, string pathBooks)
@@ -58,7 +69,7 @@ namespace LibraryApp.IO
                 RepositoryMethods.ImportBooks(context, books);
             }
 
-            Console.WriteLine("\nImportazione completata!\n");
+            Console.WriteLine("\nImport completed!\n");
         }
     }
 }

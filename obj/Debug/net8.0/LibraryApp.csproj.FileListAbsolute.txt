@@ -105,3 +105,4 @@ C:\Users\federico.sbressa\source\repos\LibraryApp\LibraryApp\obj\Debug\net8.0\re
 C:\Users\federico.sbressa\source\repos\LibraryApp\LibraryApp\bin\Debug\net8.0\appsettings.json
 C:\Users\federico.sbressa\source\repos\LibraryApp\LibraryApp\obj\Debug\net8.0\LibraryApp.sourcelink.json
 C:\Users\federico.sbressa\source\repos\LibraryApp\LibraryApp\bin\Debug\net8.0\CsvHelper.dll
+C:\Users\federico.sbressa\source\repos\LibraryApp\LibraryApp\bin\Debug\net8.0\Newtonsoft.Json.dll

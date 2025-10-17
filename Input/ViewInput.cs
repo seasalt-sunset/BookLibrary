@@ -33,10 +33,11 @@ namespace LibraryApp.Input
 
         public static void ViewAuthorBooks(LibraryAppDbContext context, Author author)
         {
+            int count = 1;
             foreach (var book in author.Books)
             {
-
-                Console.WriteLine($"Name: {book.Name}\tGenre: {book.Genre}\tRelease date: {book.PublishingDate}\tAuthor: {book.Author.Name}");
+                Console.WriteLine($"\t{count}) Name: {book.Name}\tGenre: {book.Genre}\tRelease date: {book.PublishingDate}\tAuthor: {book.Author.Name}");
+                count++;
             }
             Console.WriteLine();
         }
@@ -44,16 +45,19 @@ namespace LibraryApp.Input
         public static void ViewAllAuthors(LibraryAppDbContext context)
         {
             var allAuthors = RepositoryMethods.FindAllAuthors(context);
-
+            int count = 1;
             foreach (var author in allAuthors)
             {
+                Console.WriteLine($"\n{count}:");
                 ViewAuthor(context, author);
+                count++;
             }
         }
 
         public static void ViewBook(LibraryAppDbContext context, Book? book = null)
         {
             string bookName = "";
+            
             while (book == null)
             {
                 Console.WriteLine("What's the name of the book that you're looking for?");
@@ -72,11 +76,14 @@ namespace LibraryApp.Input
 
         public static void ViewAllBooks(LibraryAppDbContext context)
         {
+            int count = 1;
             var allBooks = RepositoryMethods.FindAllBooks(context);
 
             foreach (var book in allBooks)
             {
+                Console.WriteLine($"\n{count}:");
                 ViewBook(context, book);
+                count++;
             }
         }
 
