@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryApp.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,17 @@ namespace LibraryApp.IO
 {
     public static class InputOutput
     {
-        public static void ChooseFormat(ReadOrWrite select)
+        public static void ChooseFormat(LibraryAppDbContext context, ReadOrWrite select)
         {
             string pathAuthors = "";
-            string pathBooks = "" 
+            string pathBooks = "";
 
             if (select == ReadOrWrite.Write)
             {
+                Console.WriteLine("You can choose one of the following extensions:" +
+                            "\n .csv" +
+                            "\n.json" +
+                            "\n.xml");
                 Console.WriteLine("Write the full path where you want to save the Authors (including file name and extention):");
                 pathAuthors = Console.ReadLine();
                 Console.WriteLine("Write the full path where you want to save the Books (including file name and extention):");
@@ -22,15 +27,16 @@ namespace LibraryApp.IO
             }
             else
             {
+                Console.WriteLine("You can choose one of the following extensions:" +
+                            "\n .csv" +
+                            "\n.json" +
+                            "\n.xml");
                 Console.WriteLine("Write the full path of the file you want to read Authors from (including file name and extention):");
                 pathAuthors = Console.ReadLine();
                 Console.WriteLine("Write the full path where you want to read the Books from (including file name and extention):");
                 pathBooks = Console.ReadLine();
             }
-            Console.WriteLine("You can choose one of the following extensions:" +
-                            "\n .csv" +
-                            "\n.json" +
-                            "\n.xml");
+            
 
             Format choice = pathAuthors.EndsWith(".csv", StringComparison.OrdinalIgnoreCase) ? Format.Csv :
                             pathAuthors.EndsWith(".json", StringComparison.OrdinalIgnoreCase) ? Format.Json :
@@ -40,13 +46,13 @@ namespace LibraryApp.IO
                 switch (choice)
                 {
                     case Format.Csv:
-                        WriteToFile.WriteToCsv(pathAuthors);
+                        WriteToFile.WriteToCsv(context, pathAuthors, pathBooks);
                         break;
                     case Format.Json:
-                        WriteToFile.WriteToJson(pathAuthors);
+                        WriteToFile.WriteToJson(context, pathAuthors, pathBooks);
                         break;
                     case Format.Xml:
-                        WriteToFile.WriteToXml(pathAuthors);
+                        WriteToFile.WriteToXml(context, pathAuthors, pathBooks);
                         break;
                 }
             }
@@ -55,13 +61,13 @@ namespace LibraryApp.IO
                 switch (choice)
                 {
                     case Format.Csv:
-                        WriteToFile.WriteToCsv(pathAuthors);
+                        ReadFromFile.ReadFromCsv(context, pathAuthors, pathBooks);
                         break;
                     case Format.Json:
-                        WriteToFile.WriteToJson(pathAuthors);
+                        ReadFromFile.ReadFromJson(context, pathAuthors, pathBooks);
                         break;
                     case Format.Xml:
-                        WriteToFile.WriteToXml(pathAuthors);
+                        ReadFromFile.ReadFromXml(context, pathAuthors, pathBooks);
                         break;
                 }
             }

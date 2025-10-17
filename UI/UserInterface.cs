@@ -65,10 +65,10 @@ namespace LibraryApp.UI
                         RemoveInput.RemoveAllBooks(context);
                         break;
                     case EnumMenu.WriteToFile:
-                        InputOutput.ChooseFormat(ReadOrWrite.Write);
+                        InputOutput.ChooseFormat(context, ReadOrWrite.Write);
                         break;
                     case EnumMenu.ReadFromFile:
-                        InputOutput.ChooseFormat(ReadOrWrite.Read);
+                        InputOutput.ChooseFormat(context, ReadOrWrite.Read);
                         break;
                     case EnumMenu.Exit:
                         return;

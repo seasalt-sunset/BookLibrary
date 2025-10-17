@@ -1,4 +1,5 @@
-﻿using LibraryApp.Entities;
+﻿using LibraryApp.DTOs;
+using LibraryApp.Entities;
 using LibraryApp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,7 +37,74 @@ namespace LibraryApp.Repository
 
         public static List<Book> FindAllBooks(LibraryAppDbContext context)
         {
-            return context.Books.Include(b => b.Author).ToList();        }
+            return context.Books.Include(b => b.Author).ToList();
+        }
+
+        public static List<AuthorExport> GetAuthorsExport(LibraryAppDbContext context)
+        {
+            var authors = context.Authors.Select(a => new AuthorExport()
+            {
+                AuthorId = a.AuthorId,
+                Name = a.Name,
+                BirthDate = a.BirthDate,
+                Nationality = a.Nationality,
+                DeathDate = a.DeathDate
+            }).ToList();
+
+            return authors;
+        }
+
+        public static List<BookExport> GetBooksExport(LibraryAppDbContext context)
+        {
+            var authors = context.Books.Select(b => new BookExport()
+            {
+                BookId = b.BookId,
+                Name = b.Name,
+                Genre = b.Genre,
+                PublishingDate = b.PublishingDate,
+                NumberOfPages = b.NumberOfPages,
+                AuthorId = b.AuthorId
+            }).ToList();
+
+            return authors;
+        }
+
+        public static void ImportAuthors(LibraryAppDbContext context, IEnumerable<AuthorExport> authors)
+        {
+            foreach (var author in authors)
+            {
+                var entry = new Author()
+                {
+                    AuthorId = author.AuthorId,
+                    Name = author.Name,
+                    BirthDate = author.BirthDate,
+                    Nationality = author.Nationality,
+                    DeathDate = author.DeathDate,
+                    Books = new List<Book>()
+                };
+                context.Authors.Add(entry);
+            }
+            context.SaveChanges();
+        }
+
+        public static void ImportBooks(LibraryAppDbContext context, IEnumerable<BookExport> books)
+        {
+            foreach(var book in books)
+            {
+                var entry = new Book()
+                {
+                    BookId = book.BookId,
+                    Name = book.Name,
+                    Genre = book.Genre,
+                    PublishingDate = book.PublishingDate,
+                    NumberOfPages = book.NumberOfPages,
+                    AuthorId = book.AuthorId,
+                    Author = context.Authors.Single(a => a.AuthorId == book.AuthorId)
+                };
+                context.Books.Add(entry);
+            }
+            context.SaveChanges();
+        }
 
         public static Book? FindBook(LibraryAppDbContext context, string bookName)
         {

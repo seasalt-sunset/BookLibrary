@@ -33,9 +33,9 @@ namespace LibraryApp.Input
 
         public static void ViewAuthorBooks(LibraryAppDbContext context, Author author)
         {
-            foreach(var book in author.Books)
+            foreach (var book in author.Books)
             {
-                
+
                 Console.WriteLine($"Name: {book.Name}\tGenre: {book.Genre}\tRelease date: {book.PublishingDate}\tAuthor: {book.Author.Name}");
             }
             Console.WriteLine();
@@ -45,7 +45,7 @@ namespace LibraryApp.Input
         {
             var allAuthors = RepositoryMethods.FindAllAuthors(context);
 
-            foreach(var author in allAuthors)
+            foreach (var author in allAuthors)
             {
                 ViewAuthor(context, author);
             }
@@ -59,7 +59,7 @@ namespace LibraryApp.Input
                 Console.WriteLine("What's the name of the book that you're looking for?");
                 bookName = Console.ReadLine();
                 book = RepositoryMethods.FindBook(context, bookName);
-                if(book == null) { Console.WriteLine("\nBook not found.\n"); }
+                if (book == null) { Console.WriteLine("\nBook not found.\n"); }
             }
 
             Console.WriteLine($"Book: {book.Name}");

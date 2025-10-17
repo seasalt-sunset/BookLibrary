@@ -1,25 +1,21 @@
-﻿using System;
+﻿using LibraryApp.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
-namespace LibraryApp.Entities
+namespace LibraryApp.DTOs
 {
-    public class Book
+    public class BookExport
     {
-        [Key]
         public int BookId { get; set; }
-        
+
         public string Name { get; set; }
         public string Genre { get; set; }
         public DateTime PublishingDate { get; set; }
         public int? NumberOfPages { get; set; }
         public int AuthorId { get; set; }
-        
-        [JsonIgnore]
-        public Author Author { get; set; }
     }
 }
