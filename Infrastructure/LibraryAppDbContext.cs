@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,9 @@ namespace LibraryApp.Infrastructure
                 .AddJsonFile("appsettings.json")
                 .Build();
             var connectionString = configBuilder.GetConnectionString("connectionDb");
+            //logging:
+            //dbContextOptionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
+            dbContextOptionsBuilder.UseLazyLoadingProxies();
             dbContextOptionsBuilder.UseNpgsql(connectionString);
         }
 

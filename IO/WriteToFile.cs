@@ -52,9 +52,8 @@ namespace LibraryApp.IO
 
         public static void WriteToJson(LibraryAppDbContext context, string pathAuthors, string pathBooks)
         {
-            
-
-            
+            WriteToJsonAuthors(context, pathAuthors);
+            WriteToJsonBooks(context, pathBooks);
 
             Console.WriteLine("\nExport completed!\n");
 

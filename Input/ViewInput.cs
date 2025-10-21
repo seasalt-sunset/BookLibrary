@@ -18,7 +18,7 @@ namespace LibraryApp.Input
             {
                 Console.WriteLine("What's the author's name that you're looking for?");
                 authorName = Console.ReadLine();
-                author = RepositoryMethods.FindAuthor(context, authorName);
+                author = RepositoryMethods.FindAuthorIncludeBooks(context, authorName);
                 if (author == null) { Console.WriteLine("\nAuthor not found.\n"); }
             }
             var bookList = author.Books.ToList();
@@ -62,7 +62,7 @@ namespace LibraryApp.Input
             {
                 Console.WriteLine("What's the name of the book that you're looking for?");
                 bookName = Console.ReadLine();
-                book = RepositoryMethods.FindBook(context, bookName);
+                book = RepositoryMethods.FindBookIncludeAuthor(context, bookName);
                 if (book == null) { Console.WriteLine("\nBook not found.\n"); }
             }
 

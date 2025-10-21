@@ -17,6 +17,6 @@ namespace LibraryApp.Entities
         public DateTime BirthDate { get; set; }
         public string Nationality { get; set; }
         public DateTime? DeathDate { get; set; }
-        public List<Book>? Books { get; set; }
+        public virtual List<Book>? Books { get; set; }
     }
 }

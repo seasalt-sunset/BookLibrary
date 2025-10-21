@@ -17,6 +17,6 @@ namespace LibraryApp.Entities
         public DateTime PublishingDate { get; set; }
         public int? NumberOfPages { get; set; }
         public int AuthorId { get; set; }
-        public Author Author { get; set; }
+        public virtual Author Author { get; set; }
     }
 }
